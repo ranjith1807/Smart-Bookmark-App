@@ -110,9 +110,16 @@ export default function Home() {
     }
   }
 
-  const deleteBookmark = async (id: number) => {
+const deleteBookmark = async (id: number) => {
+    // 1. Delete from Supabase
     const { error } = await supabase.from('bookmarks').delete().match({ id })
-    if (error) console.error('Error deleting:', error)
+    
+    if (error) {
+      console.error('Error deleting:', error)
+    } else {
+      // 2. INSTANTLY update the UI by filtering out the deleted item
+      setBookmarks((currentBookmarks) => currentBookmarks.filter((bm) => bm.id !== id))
+    }
   }
 
   if (loading) return <div className="flex justify-center p-10 text-black">Loading...</div>
