@@ -78,7 +78,7 @@ export default function Home() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`, // Good practice to use callback
+        redirectTo: `${window.location.origin}`, // Good practice to use callback
       },
     })
   }
